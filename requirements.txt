@@ -3,6 +3,7 @@
 # ipdb
 # ipykernel
 # yapf
+jupyter
 matplotlib
 # pytest
 seaborn
