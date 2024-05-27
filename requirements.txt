@@ -1,7 +1,7 @@
 # wheel
 # nbresult
-# ipdb
-# ipykernel
+ipdb
+ipykernel
 # yapf
 jupyter
 matplotlib
