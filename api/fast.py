@@ -28,7 +28,7 @@ def predict(
         company_size: str,          # Company size in range
         industry: str,              # Industry of the company
         total_funding: float,       # Total funding amount in USD
-        social_activity: list,      # List of True/False
+        social_activity: list,      # List of boolean values
     ) -> dict:
     """
         Makes a single prediction that returns a probability ratio between 0 and 1.
@@ -45,7 +45,8 @@ def predict(
         social_activity_em=[int(bool(social_activity[2]))],
         social_activity_ln=[int(bool(social_activity[3]))],
         social_activity_tw=[int(bool(social_activity[4]))],
-        social_activity_fb=[int(bool(social_activity[5]))]
+        social_activity_fb=[int(bool(social_activity[5]))],
+        company_type="For Profit"                               # The rest will be hardcoded!
     ))
 
     X_processed = preprocess_features(X_pred)
