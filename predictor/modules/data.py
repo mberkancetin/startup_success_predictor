@@ -13,4 +13,4 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.drop_duplicates()
     df = df[df.total_funding_usd > 0]
-    
+    return df

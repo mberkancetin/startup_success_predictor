@@ -10,7 +10,7 @@ def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
         preprocesses it, calls the existing model and predicts,
         returns to a numpy array.
     """
-    pass
+    
 
 def user_input(X: dict) -> pd.DataFrame:
     """
