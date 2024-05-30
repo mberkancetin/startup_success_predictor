@@ -18,7 +18,7 @@ def preprocessor(
         fit and transform into X_processed DataFrame.
     """
     one_hot_category = [
-        "state", "funding_status", "no_founders", "industry_groups", 'private_ipo',
+        "state", "funding_status", "industry_groups", 'private_ipo',
     ]
 
     ordinal_category = [
@@ -26,7 +26,7 @@ def preprocessor(
     ]
 
     numerical_features = [
-        'founded_year', 'private_ipo', 'website', 'phone',
+        'founded_year', 'private_ipo', 'website', 'phone', "no_founders",
         'email', 'linkedin', 'twitter', 'facebook', 'no_investors', 'no_fund_rounds', 'operting_status',
         'no_sub_orgs', 'has_preseed', 'has_seed', 'has_series_a', 'has_series_b', 'has_series_c',
         'has_series_d', 'has_series_e', 'has_angel', 'has_debt_financing',
