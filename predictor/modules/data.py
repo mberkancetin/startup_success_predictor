@@ -11,3 +11,6 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     - assigning correct dtypes to each column
     - removing buggy or irrelevant transactions
     """
+    df = df.drop_duplicates()
+    df = df[df.total_funding_usd > 0]
+    
