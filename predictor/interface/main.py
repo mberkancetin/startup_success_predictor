@@ -1,7 +1,43 @@
 import pandas as pd
 import numpy as np
 
+from predictor.modules.data import clean_data
+from predictor.modules.preprocess import preprocessor
+from predictor.modules.model import initialize_model, compile_model, train_model, evaluate_model
 
+import os
+
+def preprocess_train(
+        split_ratio: float = 0.02,
+        learning_rate = 0.01,
+        batch_size = 32,
+        patience = 20
+    ) -> float:
+    data_path = os.path.dirname(__file__)
+    file_path = os.path.join(data_path, "..", "..", "raw_data", "X_y_data2.csv")
+    model_path = os.path.join(data_path, "..", "..", "models", "palantir.keras")
+
+    data = pd.read_csv(file_path)
+    data_clean = clean_data(data)
+
+    X = data_clean.drop("y", axis=1)
+    y = data_clean.y
+
+    X_processed = preprocessor(X)
+    X_shape = X_processed.shape[1]
+
+    model = initialize_model((X_shape,))
+    model = compile_model(model)
+    model, history = train_model(model,
+                                 X_processed,
+                                 y,
+                                 )
+
+    model.save(filepath=model_path)
+
+
+def evaluate():
+    evaluate_model()
 
 
 def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
@@ -9,25 +45,6 @@ def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
         Receives a pandas DataFrame,
         preprocesses it, calls the existing model and predicts,
         returns to a numpy array.
-    """
-    
-
-def user_input(X: dict) -> pd.DataFrame:
-    """
-        Takes user input as dictionary and tranforms it into a pd.Dataframe.
-        X = pd.DataFrame(dict(
-            founded_year=[int(founded_year)],
-            location=[str(location)],
-            company_size=[str(company_size)],
-            industry=[str(industry)],
-            total_funding=[float(total_funding)],
-            social_activity_wb=[int(bool(social_activity[0]))],
-            social_activity_ph=[int(bool(social_activity[1]))],
-            social_activity_em=[int(bool(social_activity[2]))],
-            social_activity_ln=[int(bool(social_activity[3]))],
-            social_activity_tw=[int(bool(social_activity[4]))],
-            social_activity_fb=[int(bool(social_activity[5]))]
-        ))
     """
     X_df = pd.DataFrame(X, columns=["Founding Year",
                                     "Location",

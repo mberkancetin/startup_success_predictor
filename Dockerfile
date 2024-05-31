@@ -4,7 +4,7 @@
 
 # COPY startup_success_predictor startup_success_predictor
 # COPY setup.py setup.py
-# COPY required.txt requirements.txt
+# COPY requirements.txt requirements.txt
 
 # RUN pip install --upgrade pip
 # RUN pip install -r requirements.txt
