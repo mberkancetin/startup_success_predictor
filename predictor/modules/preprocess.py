@@ -11,14 +11,14 @@ from predictor.utils import simple_time_and_memory_tracker
 @simple_time_and_memory_tracker
 def preprocessor(
     X: pd.DataFrame,
-    y: pd.DataFrame,
+    fit_tranform=True
 ):
     """
         Receives raw X and y DataFrames and preprocess
         fit and transform into X_processed DataFrame.
     """
     one_hot_category = [
-        "state", "funding_status", "industry_groups", 'private_ipo',
+        "state", "funding_status", "industry_groups",
     ]
 
     ordinal_category = [
@@ -26,8 +26,8 @@ def preprocessor(
     ]
 
     numerical_features = [
-        'founded_year', 'private_ipo', 'website', 'phone', "no_founders",
-        'email', 'linkedin', 'twitter', 'facebook', 'no_investors', 'no_fund_rounds', 'operting_status',
+        'founded_year', 'website', 'phone', "no_founders",
+        'email', 'linkedin', 'twitter', 'facebook', 'no_investors', 'no_fund_rounds',
         'no_sub_orgs', 'has_preseed', 'has_seed', 'has_series_a', 'has_series_b', 'has_series_c',
         'has_series_d', 'has_series_e', 'has_angel', 'has_debt_financing',
         'has_grant', 'has_corporate_round', 'has_series_x'
@@ -78,4 +78,7 @@ def preprocessor(
             remainder="drop"
     )
 
-    return pd.DataFrame(preproc.fit_transform(X, y))
+    if fit_tranform == True:
+        return pd.DataFrame(preproc.fit_transform(X))
+    else:
+        return pd.DataFrame(preproc.transform(X))
