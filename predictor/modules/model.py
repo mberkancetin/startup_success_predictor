@@ -13,14 +13,14 @@ def initialize_model(input_shape: tuple) -> Model:
         Receives a dictionary of parameters as input,
         returns to a ML model.
     """
-    reg = regularizers.l1_l2(l2=0.005)
+    reg = regularizers.l1_l2(l2=0.001)
 
     model = Sequential()
     model.add(layers.Input(shape=input_shape))
     model.add(layers.Dense(50, activation="relu", kernel_regularizer=reg))
     model.add(layers.BatchNormalization(momentum=0.9))
     model.add(layers.Dropout(rate=0.1))
-    model.add(layers.Dense(20, activation="tanh"))
+    model.add(layers.Dense(20, activation="relu"))
     model.add(layers.BatchNormalization(momentum=0.9))
     model.add(layers.Dropout(rate=0.1))
     model.add(layers.Dense(1, activation="sigmoid"))
@@ -28,7 +28,7 @@ def initialize_model(input_shape: tuple) -> Model:
     return model
 
 
-def compile_model(model: Model, learning_rate=0.01) -> Model:
+def compile_model(model: Model, learning_rate=0.001) -> Model:
     """
         Compile the Neural Network
     """
@@ -46,8 +46,8 @@ def train_model(
         X: np.ndarray,
         y: np.ndarray,
         split_ratio: float = 0.02,
-        batch_size = 32,
-        patience = 20
+        batch_size = 16,
+        patience = 10
     ) -> tuple[Model, dict]:
     """
         Fit the model and return a tuple (fitted_model, history)
@@ -62,10 +62,10 @@ def train_model(
         X,
         y,
         validation_split=split_ratio,
-        epochs=700,
+        epochs=100,
         batch_size=batch_size,
         callbacks=[es],
-        verbose=0
+        verbose=1
     )
 
     return model, history

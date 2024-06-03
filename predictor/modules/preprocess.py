@@ -7,6 +7,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder, OrdinalEncoder, RobustScaler
 from predictor.utils import simple_time_and_memory_tracker
 
+import os
 
 @simple_time_and_memory_tracker
 def preprocessor(
@@ -18,7 +19,7 @@ def preprocessor(
         fit and transform into X_processed DataFrame.
     """
     one_hot_category = [
-        "state", "funding_status", "industry_groups",
+        "funding_status", "industry_groups",
     ]
 
     ordinal_category = [
@@ -26,11 +27,10 @@ def preprocessor(
     ]
 
     numerical_features = [
-        'founded_year', 'website', 'phone', "no_founders",
-        'email', 'linkedin', 'twitter', 'facebook', 'no_investors', 'no_fund_rounds',
-        'no_sub_orgs', 'has_preseed', 'has_seed', 'has_series_a', 'has_series_b', 'has_series_c',
-        'has_series_d', 'has_series_e', 'has_angel', 'has_debt_financing',
-        'has_grant', 'has_corporate_round', 'has_series_x'
+        'months_since_founded', "no_founders", "lat", "lon",
+        'no_investors', 'no_fund_rounds','no_sub_orgs', 'has_preseed',
+        'has_seed', 'has_series_a', 'has_series_b', 'has_series_c',
+        'has_debt_financing', 'has_grant'
     ]
 
     no_employees_ordinal = [
@@ -78,7 +78,9 @@ def preprocessor(
             remainder="drop"
     )
 
-    if fit_tranform == True:
-        return pd.DataFrame(preproc.fit_transform(X))
-    else:
-        return pd.DataFrame(preproc.transform(X))
+    data_path = os.path.dirname(__file__)
+    file_path = os.path.join(data_path, "..", "..", "raw_data", "X_y_data3.csv")
+
+    data = pd.read_csv(file_path)
+    scaler = preproc.fit(data)
+    return pd.DataFrame(scaler.transform(X))
