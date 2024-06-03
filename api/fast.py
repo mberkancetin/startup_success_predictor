@@ -26,14 +26,17 @@ app.add_middleware(
 
 @app.get("/predict")
 def predict(
-        months_since_founded: int,          # Year between 2009-2024
-        lat: float,              # Region in Germany
+        months_since_founded: int,
+        lat: float,          
         lon: float,
         company_size: str,          # Company size in range
+        no_founders: float,
         industry_groups: str,              # Industry of the company
         funding_status: str,
         revenue_range: str,
         total_funding: float,       # Total funding amount in USD
+        has_debt_financing: bool,
+        has_grant: bool,
     ) -> dict:
     """
         Makes a single prediction that returns a probability ratio between 0 and 1.
@@ -43,10 +46,6 @@ def predict(
     has_series_a=[0]
     has_series_b=[0]
     has_series_c=[0]
-    has_debt_financing=[0]
-    has_grant=[0]
-    has_corporate_round=[0]
-    has_series_x=[0]
 
     if funding_status == "Preseed":
         has_preseed = [1]
@@ -76,24 +75,24 @@ def predict(
         lon=[float(lon)],
         revenue_range=[str(revenue_range)],
         no_employees=[str(company_size)],
-        no_founders=[0.0],
+        no_founders=[float(no_founders)],
         industry_groups=[str(industry_groups)],
         months_since_founded=[int(months_since_founded)],
-        no_investors=[0.0],
-        no_fund_rounds=[0.0],
-        private_ipo=[0],
-        company_type=[0],
-        operting_status=[0],
-        no_lead_investors=[0.0],
-        no_sub_orgs=[0.0],
+        no_investors=[0.0], # ==========================>>>>>>
+        no_fund_rounds=[0.0], # ==========================>>>>>>
+        private_ipo=[0], # no need
+        company_type=[0], # no need
+        operting_status=[0], # no need
+        no_lead_investors=[0.0], # ==========================>>>>>>
+        no_sub_orgs=[0.0], # ==========================>>>>>>
         has_preseed=has_preseed,
         has_seed=has_seed,
         has_series_a=has_series_a,
         has_series_b=has_series_b,
         has_series_c=has_series_c,
-        has_debt_financing=[0],
-        has_grant=[0],
-        has_corporate_round=[0],
+        has_debt_financing=[int(bool(has_debt_financing))],
+        has_grant=[int(bool(has_grant))],
+        has_corporate_round=[0], # no need
     ))
 
     total_funding = [float(total_funding)]
@@ -119,14 +118,17 @@ def root():
     return response
 
 
-prediction = predict(2020,          # Year between 2009-2024
-        52.7565,              # Region in Germany
-        10.43442,
-        "101-250",          # Company size in range
-        "Other",              # Industry of the company
+"""prediction = predict(2020,          # Year between 2009-2024
+        52.7565,                    # Lattitude coordinates of the company
+        10.43442,                   # Lontude coordinates of the company
+        "101-250",                  # Company size in range
+        2.0,
+        "Other",                    # Industry of the company
         "Seed",
         "Less than $1M",
         10000000000,       # Total funding amount in USD
+        True,
+        False,
         )
 
-# print(prediction)
+print(prediction)"""

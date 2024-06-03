@@ -56,12 +56,13 @@ def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
                                 "lat",
                                 "lon",
                                 "company_size",
+                                "no_founders",
                                 "industry_groups",
+                                "funding_status",
+                                "revenue_range",
                                 "total_funding",
-                                'website',
-                                'phone',
-                                'email',
-                                'linkedin',
-                                'twitter',
-                                'facebook'])
+                                "has_debt_financing",
+                                "has_grant",
+                                "has_corporate_round"])
     return X_df
+
