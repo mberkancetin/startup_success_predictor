@@ -27,7 +27,7 @@ app.add_middleware(
 @app.get("/predict")
 def predict(
         months_since_founded: int,
-        lat: float,          
+        lat: float,
         lon: float,
         company_size: str,          # Company size in range
         no_founders: float,
@@ -58,13 +58,13 @@ def predict(
         has_preseed = [np.random.randint(2)]
     elif funding_status == "Series B":
         has_series_b=[1]
-        has_series_a=[np.random.randint(2)]
+        has_series_a=[1]
         has_seed=[np.random.randint(2)]
         has_preseed = [np.random.randint(2)]
-    elif funding_status == "Series A":
+    elif funding_status == "Series C":
         has_series_c=[1]
-        has_series_b=[np.random.randint(2)]
-        has_series_a=[np.random.randint(2)]
+        has_series_b=[1]
+        has_series_a=[1]
         has_seed=[np.random.randint(2)]
         has_preseed = [np.random.randint(2)]
 
@@ -132,3 +132,19 @@ def root():
         )
 
 print(prediction)"""
+
+"""pred = predict(
+    58,
+    47.92,
+    9.2667,
+    "10001+",
+    1,
+    "Sustainability",
+    "Pre-Seed",
+    "Less than $1M",
+    0,
+    False,
+    False
+)
+
+print(pred)"""
