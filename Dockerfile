@@ -1,12 +1,12 @@
 FROM python:3.8.12-slim
+FROM tensorflow/tensorflow:2.10.0
 
 WORKDIR /prod
 
-COPY models models
 COPY predictor predictor
 COPY setup.py setup.py
 COPY requirements.txt requirements.txt
-COPY raw_data/X_y_data3.csv raw_data/X_y_data3.csv
+
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
