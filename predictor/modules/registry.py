@@ -21,5 +21,5 @@ def load_model():
 
 def save_model(model: keras.Model = None) -> None:
 
-    model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", "asd.h5")
+    model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", "palantirv2.keras")
     model.save(model_path)
