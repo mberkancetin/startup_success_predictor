@@ -14,9 +14,8 @@ def preprocess_train(
         batch_size = 32,
         patience = 20
     ) -> float:
-    data_path = os.path.dirname(__file__)
-    file_path = os.path.join(data_path, "..", "..", "raw_data", "X_y_data3.csv")
-    model_path = os.path.join(data_path, "..", "..", "models", "palantir_v4.keras")
+    file_path = "predictor/raw_data/X_y_data3.csv"
+    model_path = "predictor/models/palantir_v4.keras"
 
     data = pd.read_csv(file_path)
     data_clean = clean_data(data)
@@ -43,8 +42,6 @@ def preprocess_train(
     model.save(filepath=model_path)
 
 # preprocess_train()
-def evaluate():
-    evaluate_model()
 
 def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
     """
@@ -65,4 +62,3 @@ def pred(X_pred: pd.DataFrame = None) -> np.ndarray:
                                 "has_grant",
                                 "has_corporate_round"])
     return X_df
-

@@ -6,20 +6,11 @@ from predictor.params import *
 
 def load_model():
 
-    local_model_directory = os.path.join(LOCAL_REGISTRY_PATH, "models")
-    local_model_paths = glob.glob(f"{local_model_directory}/*")
-
-    if not local_model_paths:
-        return None
-
-    most_recent_model_path_on_disk = sorted(local_model_paths)[-1]
-
-    latest_model = keras.models.load_model(most_recent_model_path_on_disk)
-
+    latest_model = keras.models.load_model("predictor/models/palantir_v4.keras")
     return latest_model
 
 
 def save_model(model: keras.Model = None) -> None:
 
-    model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", "palantirv2.keras")
+    model_path = "predictor/models/palantir_v5.keras"
     model.save(model_path)

@@ -78,8 +78,7 @@ def preprocessor(
             remainder="drop"
     )
 
-    data_path = os.path.dirname(__file__)
-    file_path = os.path.join(data_path, "..", "..", "raw_data", "X_y_data3.csv")
+    file_path = "predictor/raw_data/X_y_data3.csv"
 
     data = pd.read_csv(file_path)
     scaler = preproc.fit(data)

@@ -6,14 +6,14 @@ import requests
 
 from predictor.params import *
 from predictor.modules.preprocess import preprocessor
-# from predictor.modules.registry import load_model
+from predictor.modules.registry import load_model
 # from predictor.interface.main import pred
 
 from tensorflow import keras
 
 app = FastAPI()
 
-# app.state.model = load_model()
+app.state.model = load_model()
 
 
 app.add_middleware(
@@ -99,9 +99,9 @@ def predict(
 
     X_processed = preprocessor(X_pred, fit_tranform=False)
 
-    # y_pred = app.state.model.predict(X_processed)
-    latest_model = keras.models.load_model("models/palantir_v4.keras")
-    y_pred = latest_model.predict(X_processed)
+    y_pred = app.state.model.predict(X_processed)
+    # latest_model = keras.models.load_model("models/palantir_v4.keras")
+    # y_pred = latest_model.predict(X_processed)
 
     response = {
         "Success Probability": float(y_pred)
