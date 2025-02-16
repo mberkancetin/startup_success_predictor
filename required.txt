@@ -105,7 +105,6 @@ pexpect==4.9.0
 pillow==10.3.0
 platformdirs==4.2.2
 pluggy==1.5.0
--e git+ssh://git@github.com/mberkancetin/startup_success_predictor.git@e1c757b99838863194fbe3af00d382e6d525c213#egg=predictor
 prometheus_client==0.20.0
 prompt-toolkit==3.0.43
 proto-plus==1.23.0
